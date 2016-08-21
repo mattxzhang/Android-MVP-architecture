@@ -1,4 +1,5 @@
-package com.kai.android_mvp_architecture;
+
+package com.kai.android_mvp_architecture.view.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -29,6 +30,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.kai.android_mvp_architecture.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +40,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends BaseActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -277,6 +280,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
+    }
+
+    @Override
+    public void loading() {
+
+    }
+
+    @Override
+    public void loading(String message) {
+
+    }
+
+    @Override
+    public void loaded() {
+
     }
 
 
