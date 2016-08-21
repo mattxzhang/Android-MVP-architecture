@@ -31,7 +31,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.kai.android_mvp_architecture.R;
+import com.kai.android_mvp_architecture.network.APIService;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +74,13 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 
     @OnClick(R.id.email_sign_in_button)
     public void signIn(View view){
+
+        try {
+            APIService.test(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         attemptLogin();
     }
 
@@ -117,8 +126,6 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
 //        mLoginFormView = findViewById(R.id.login_form);
 //        mProgressView = findViewById(R.id.login_progress);
     }
-
-
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
