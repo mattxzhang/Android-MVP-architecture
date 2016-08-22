@@ -5,16 +5,15 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
-import retrofit.Response;
-import retrofit.Retrofit;
-import retrofit.http.GET;
-import retrofit.http.Query;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
-
-public class APIService {
+public class RetrofitSimpleExample {
     public static final String API_URL = "http://gc.ditu.aliyun.com/";
 
     public static class CityGeoInfo {
@@ -35,9 +34,9 @@ public class APIService {
         }
     }
 
-    public interface WeatherApi {
+    public interface CityGeoInfoApi {
         @GET("geocoding")
-        Call<CityGeoInfo> getWeather(
+        Call<CityGeoInfo> getCityGeoInfo(
                 @Query("cityCode") String cityCode);
     }
 
@@ -47,20 +46,23 @@ public class APIService {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        WeatherApi weatherApi = retrofit.create(WeatherApi.class);
+        CityGeoInfoApi weatherApi = retrofit.create(CityGeoInfoApi.class);
 
-        Call<CityGeoInfo> call = weatherApi.getWeather("武汉");
-
+        Call<CityGeoInfo> call = weatherApi.getCityGeoInfo("武汉");
 
         call.enqueue(new Callback<CityGeoInfo>() {
             @Override
-            public void onResponse(Response<CityGeoInfo> response) {
+            public void onResponse(Call<CityGeoInfo> call, Response<CityGeoInfo> response) {
+                if (response.isSuccessful()){
+                    System.out.println("-------response:success"+response);
+                }else {
+                    System.out.println("-------response:failed"+response);
+                }
                 Toast.makeText(context,"onResponse",Toast.LENGTH_SHORT).show();
-                System.out.println("-------response:"+response);
             }
 
             @Override
-            public void onFailure(Throwable t) {
+            public void onFailure(Call<CityGeoInfo> call, Throwable t) {
                 Toast.makeText(context,"onFailure",Toast.LENGTH_SHORT).show();
             }
         });
